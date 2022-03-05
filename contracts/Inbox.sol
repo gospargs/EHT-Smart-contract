@@ -1,4 +1,6 @@
-pragma solidity ^0.4.17; // specifies the version of solidity that our code is written in
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.9; // specifies the version of solidity that our code is written in
 
 contract Inbox {
     // Defines a new contract that will have some methods and variables
@@ -8,12 +10,12 @@ contract Inbox {
     // If a variable is public i automaticly generates a getMessage.
 
     // Defines different functions that will be members of this contract
-    function Inbox(string initialMessage) public {
+    constructor(string memory initialMessage) {
         // constructor
         message = initialMessage;
     }
 
-    function setMessage(string newMessage) public {
+    function setMessage(string memory newMessage) public {
         message = newMessage;
     }
     /*

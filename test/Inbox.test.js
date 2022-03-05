@@ -2,7 +2,7 @@ const assert = require('assert');
 const ganache = require('ganache-cli'); // Our local test network
 const Web3 = require('web3'); // Capital letter because its a constructor function (used to create instances of the web3 library)
 const web3 = new Web3(ganache.provider()); // actual instance of web3, ganache.provider() -depends on what network we are goint to connect to.
-const { interface, bytecode } = require('../compile'); // interface - abi, bytecode - compiled contract
+const { abi, evm } = require('../compile'); // interface - abi, bytecode - compiled contract
 
 // Every function we call with web3 i async - it returns a promise
 
@@ -16,8 +16,8 @@ beforeEach(async () => {
 
   // Use one of those account to deploy the contract
   // inbox is a JS respresentation of our contract
-  inbox = await new web3.eth.Contract(JSON.parse(interface)) // Teaches web3 about what methods an Inbox contract has, param: json representation of our contract
-    .deploy({ data: bytecode, arguments: [INITIAL_STRING] }) // Tells web3 that we want to deploy a new copy of this contract,data - we specify the bytecode of the contract, arguments - calling the constructor function in our contract, creates the object that can be deployed to the network
+  inbox = await new web3.eth.Contract(abi) // Teaches web3 about what methods an Inbox contract has, param: json representation of our contract
+    .deploy({ data: evm.bytecode.object, arguments: [INITIAL_STRING] }) // Tells web3 that we want to deploy a new copy of this contract,data - we specify the bytecode of the contract, arguments - calling the constructor function in our contract, creates the object that can be deployed to the network
     .send({ from: accounts[0], gas: '1000000' }); // Instructs web3 to send out a transaction that creates this contract, from: person that is creating the contract
 });
 

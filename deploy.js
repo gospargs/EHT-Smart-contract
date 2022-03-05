@@ -1,7 +1,6 @@
 const HDWallerProvider = require("@truffle/hdwallet-provider");
-const { interfaces } = require("mocha");
 const Web3 = require("web3");
-const { interface, bytecode } = require("./compile");
+const { abi, evm } = require("./compile");
 const INITIAL_STRING = "Hi there!";
 
 const provider = new HDWallerProvider( // connect to a target netword and unlock an account
@@ -19,8 +18,8 @@ const deploy = async () => {
 
   console.log("Attempting to deploy from account ", accounts[0]);
 
-  const result = await new web3.eth.Contract(JSON.parse(interface)) // The inteface is the abi
-    .deploy({ data: bytecode, arguments: [INITIAL_STRING] })
+  const result = await new web3.eth.Contract(abi) // The inteface is the abi
+    .deploy({ data: evm.bytecode.object, arguments: [INITIAL_STRING] })
     .send({ gas: "1000000", from: accounts[0] });
 
   console.log("Contract deployed to ", result.options.address);

@@ -10,7 +10,7 @@ contract Inbox {
     // Defines different functions that will be members of this contract
     function Inbox(string initialMessage) public {
         // constructor
-        message = initialMessage;adm
+        message = initialMessage;
     }
 
     function setMessage(string newMessage) public {

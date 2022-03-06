@@ -1,2 +1,2 @@
-# EHT-Smart-contract
+# ETH-Smart-contract
 Deploying a smart contract on ETH Rinkeby network.
